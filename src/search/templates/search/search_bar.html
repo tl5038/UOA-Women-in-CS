@@ -1,0 +1,19 @@
+{% load static %}
+
+<form class="search-bar" action="{% url 'search' %}" method="GET">
+    <div class="input-group">
+        <select class="w-25 p-3 search" name="selected" id="select">
+            <option value="everything" style="font-weight:bold;">Everything</option>
+            <option value="news" style="font-weight:bold;">News</option>
+            <option value="events" style="font-weight:bold;">Events</option>
+            <option value="staff" style="font-weight:bold;">Staff</option>
+            <option value="phd_students" style="font-weight:bold;">PhD Students</option>
+            <option value="projects" style="font-weight:bold;">Projects</option>
+        </select>
+        <input id="news_search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search"
+               aria-describedby="search-addon" name="searched"/>
+        <button type="submit" class="btn btn-outline-primary search-button"><img
+                src="{% static 'img/home/magnifying-glass.png' %}" alt="Search"></button>
+    </div>
+</form>
+<script src="{% static 'js/onload.js' %}"></script>

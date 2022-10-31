@@ -1,0 +1,10 @@
+.idea
+*.iml
+.vscode
+*.code-workspace
+*.pyc
+*.pyo
+.pytest_cache
+*venv/
+db.sqlite3
+src/media

@@ -1,0 +1,14 @@
+server {
+    listen ${NGINX_PORT};
+    location /static {
+        alias /data/www/static;
+    }
+    location /media {
+        alias /data/www/media;
+    }
+    location / {
+        uwsgi_pass ${APP_HOST}:${APP_PORT};
+        include uwsgi_params;
+        client_max_body_size 10M;
+    }
+}

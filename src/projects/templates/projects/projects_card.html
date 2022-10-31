@@ -1,0 +1,145 @@
+{% if object in search_project %}
+    <div class="col-12 col-md-3 col-lg-3 d-flex align-self-stretch">
+        <div class="card mb-4">
+            {% if object.images.first.image %}
+                <img class="card-img-top" style="width: 100%; height: 15vw; object-fit: cover;"
+                     src="{{ object.images.first.image.url }}" alt="{{ object.images.first.image.url }}"/>
+            {% endif %}
+            <div class="card-body d-flex flex-column profile-cards">
+                <h2 class="card-title h4">{{ object.name }}</h2>
+                <p class="card-text profile-hr">{{ object.description|striptags|safe }}</p>
+                <p class="card-title">
+                    {% for supervisor in object.projectsupervisor.all %}
+                        {% if forloop.first %}
+                            {% if object.projectsupervisor.all|length <= 1 %}
+                                <b class="project-supervisor">Supervisor:</b>
+                            {% else %}
+                                <b class="project-supervisor">Supervisors:</b>
+                            {% endif %}
+                        {% endif %}
+                        {% if supervisor.profile %}
+                            {% if forloop.last %}
+                                <a class="project_link"
+                                   href="{{ supervisor.profile.get_absolute_url }}">{% firstof supervisor.name supervisor.profile.name %}</a>
+                            {% else %}
+                                <a class="project_link"
+                                   href="{{ supervisor.profile.get_absolute_url }}">{% firstof supervisor.name supervisor.profile.name %}</a>
+                                <b>,</b>
+                            {% endif %}
+                        {% else %}
+                            {% firstof supervisor.name supervisor.profile.name %}
+                        {% endif %}
+                    {% endfor %}
+                </p>
+                <p class="card-title">
+                    {% for participant in object.projectparticipant.all %}
+                        {% if forloop.first %}
+                            {% if object.projectparticipant.all|length <= 1 %}
+                                <b class="project-participant">Participant:</b>
+                            {% else %}
+                                <b class="project-participant">Participants:</b>
+                            {% endif %}
+                        {% endif %}
+                        {% if forloop.last %}
+                            {% if participant.profile %}
+                                <a class="project_link"
+                                   href="{{ participant.profile.get_absolute_url }}">{% firstof participant.name participant.profile.name %}</a>
+                            {% else %}
+                                {% firstof participant.name participant.profile.name %}
+                            {% endif %}
+                        {% else %}
+                            {% firstof participant.name participant.profile.name %},
+                        {% endif %}
+                    {% endfor %}
+                </p>
+
+                {% if object.external_url %}
+                    <div class="mt-auto">
+                        <a href="{{ object.external_url }}" target="_blank" class="btn mid-blue mt-3"
+                           display="inline-block">See More <i class="fa fa-external-link"></i></a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    <div class="card mb-3">
+        <div class="row no-gutters">
+
+            {% if object.images.first.image %}
+                <div class="col-md-4 my-auto">
+                    <img src="{{ object.images.first.image.url }}" style="height: 20vw; object-fit: cover;"
+                         class="card-img" alt="{{ object.images.first.description }}">
+                </div>
+            {% endif %}
+
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title">{{ object.name }}</h2>
+                    <p class="card-text">{{ object.description|striptags|safe }}</p>
+                    <p class="card-title">
+                        {% for supervisor in object.projectsupervisor.all %}
+                            {% if forloop.first %}
+                                {% if object.projectsupervisor.all|length <= 1 %}
+                                    <b class="project-supervisor">Supervisor:</b>
+                                {% else %}
+                                    <b class="project-supervisor">Supervisors:</b>
+                                {% endif %}
+                            {% endif %}
+                            {% if forloop.last %}
+                                {% if supervisor.profile %}
+                                    <a class="project_link"
+                                       href="{{ supervisor.profile.get_absolute_url }}">{% firstof supervisor.name supervisor.profile.name %}</a>
+                                {% else %}
+                                    {% firstof supervisor.name supervisor.profile.name %}
+                                {% endif %}
+                            {% else %}
+                                {% if supervisor.profile %}
+                                    <a class="project_link"
+                                       href="{{ supervisor.profile.get_absolute_url }}">{% firstof supervisor.name supervisor.profile.name %}</a>
+                                    ,
+                                {% else %}
+                                    {% firstof supervisor.name supervisor.profile.name %},
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                    <p class="card-title">
+                        {% for participant in object.projectparticipant.all %}
+                            {% if forloop.first %}
+                                {% if object.projectparticipant.all|length <= 1 %}
+                                    <b class="project-participant">Participant:</b>
+                                {% else %}
+                                    <b class="project-participant">Participants:</b>
+                                {% endif %}
+                            {% endif %}
+                            {% if forloop.last %}
+                                {% if participant.profile %}
+                                    <a class="project_link"
+                                       href="{{ participant.profile.get_absolute_url }}">{% firstof participant.name participant.profile.name %}</a>
+                                {% else %}
+                                    {% firstof participant.name participant.profile.name %}
+                                {% endif %}
+                            {% else %}
+                                {% if participant.profile %}
+                                    <a class="project_link"
+                                       href="{{ participant.profile.get_absolute_url }}">{% firstof participant.name participant.profile.name %}</a>
+                                    ,
+                                {% else %}
+                                    {% firstof participant.name participant.profile.name %},
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                    {% if object.external_url %}
+                        <p><a href="{{ object.external_url }}" target="_blank" class="btn mid-blue mt-3"
+                              display="inline-block">See More <i class="fa fa-external-link"></i></a></p>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endif %}

@@ -1,0 +1,112 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% block header %}
+{% endblock %}
+{% block content %}
+
+    {% load static %}
+
+    <div class="mt-5 mb-5 home-header">
+        <h1 class="text-center">Women in Computer Science</h1>
+        <h3 class="text-center">Computers are a growing part of our world, with computer skills becoming more prominent
+            in many fields. We aim to give women a place in this future. From web development to network engineering, we
+            are here to support women in their computer science pursuits.</h3>
+    </div>
+
+    <div class="main-home-img">
+        <img src="{% static 'img/home/student_beanbags.jpg' %}" alt="woman in beanbag with laptop">
+        <div class="main-home-message">
+            <h2>Keep Updated</h2>
+            <p>Stay informed on current happenings.</p>
+            <input type="button" class="card-button" onclick="window.location.href='{% url 'news-list' %}'"
+                   value="News"/>
+        </div>
+    </div>
+
+    <div class="home-row-2">
+        <div class="home-block-1">
+            <div class="home-paragraph-above">
+                <h2>Meet Our People</h2>
+                <h5>The people here at the University of Auckland are dedicated to their work, pushing the boundaries of
+                    computer science and giving young women the tools to do the same.
+                    Our staff and PhD students alike are eager to teach and continue their learning journey, being
+                    involved in our research projects and events.</h5>
+            </div>
+            <div class="home-block-below">
+                <img class="img-left"
+                     src="https://cdn.auckland.ac.nz/aem/content/auckland/en/science/about-the-faculty/school-of-computer-science/jcr:content/par/linkspagetemplategri/par1/subflexicomponentlin/image.img.768.medium.jpg/1606787265586.jpg"
+                     alt="smiling woman at board">
+                <input type="button" class="home-people-button" onclick="window.location.href='{% url 'staff-list' %}'"
+                       value="View Our Staff"/>
+                <input type="button" class="home-people-button" onclick="window.location.href='{% url 'phd-list' %}'"
+                       value="See PhD Students"/>
+                <img class="img-right"
+                     src="https://cdn.auckland.ac.nz/aem/content/auckland/en/science/about-the-faculty/school-of-computer-science/computer-science-research/jcr:content/par/linkspagetemplategri_1514166351/par1/subflexicomponentlin/image.img.768.medium.jpg/1661393843412.jpg"
+                     alt="woman writing on board">
+            </div>
+        </div>
+    </div>
+
+    <div class="home-row-1">
+        <div class="home-column-left">
+            <img src="{% static 'img/home/woman_computer.jpg' %}" alt="woman at laptop">
+            <div class="column-text-box">
+                <h2>Events</h2>
+                <p>Find out what's happening.</p>
+                <input type="button" class="card-button" onclick="window.location.href='{% url 'event-list' %}'"
+                       value="See What's On"/>
+            </div>
+        </div>
+        <div class="home-column-right">
+            <img src="{% static 'img/home/robot.jpg' %}" alt="robot">
+            <div class="column-text-box">
+                <h2>Projects</h2>
+                <p>View our research opportunities.</p>
+                <input type="button" class="card-button" onclick="window.location.href='{% url 'projects-list' %}'"
+                       value="Get Involved"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-row-2">
+        <div class="home-block-2">
+            <div class="align-center">
+                <div class="home-block-left-div">
+                    <h2>Resources</h2>
+                    <h5>Find the tools that can help you, wherever you are in your coding journey. Choose from an array
+                        of links to partnering websites and organizations.</h5>
+                    <input type="button" class="" onclick="window.location.href='{% url 'resources-list' %}'"
+                           value="Find Help"/>
+                </div>
+                <div class="home-block-right-div">
+                    <img src="https://cdn.auckland.ac.nz/aem/content/auckland/en/science/about-the-faculty/school-of-computer-science/collaborations-and-affiliation/jcr:content/par/linkspagetemplategri/par1/subflexicomponentlin/image.img.768.medium.jpg/1560400530414.jpg"
+                         alt="floating data">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-row-1">
+        <div class="home-column-left">
+            <img src="https://cdn.auckland.ac.nz/aem/content/auckland/en/science/about-the-faculty/our-faculty/locations-and-maps/jcr:content/leftpar/imagecomponent_1293606718/image.img.1024.medium.jpg/1553135028615.jpg"
+                 alt="science building">
+            <div class="column-text-box">
+                <h2>Contact</h2>
+                <p>Get in touch.</p>
+                <input type="button" class="card-button" onclick="window.location.href='{% url  'contact' %}'"
+                       value="Contact Us"/>
+            </div>
+        </div>
+        <div class="home-column-right">
+            <img style=""
+                 src="https://cdn.auckland.ac.nz/aem/content/auckland/en/science/current-students/equity-in-our-faculty/women-in-science/jcr:content/par/linkspagetemplategri_290452612/par2/subflexicomponentlin/image.img.768.medium.jpg/1544400439149.jpg"
+                 alt="library shelves">
+            <div class="column-text-box">
+                <h2>Search</h2>
+                <p>Find what you're looking for.</p>
+                <button onclick="checkShow();window.scrollTo(0,0)" class="card-button">Search</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

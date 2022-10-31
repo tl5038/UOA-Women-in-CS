@@ -1,0 +1,60 @@
+{% load mathfilters %}
+
+<br>
+<div class="d-flex justify-content-center">
+    <span class="step-links">
+        {% if objects.has_previous %}
+            {% if request.GET.selected and request.GET.searched %}
+                <a href="?page=1&selected={{ request.GET.selected }}&searched={{ request.GET.searched }}" type="button"
+                   class="btn btn-outline-primary"><i class="fa-solid fa-angles-left"></i></a>
+                <a href="?page={{ objects.previous_page_number }}&selected={{ request.GET.selected }}&searched={{ request.GET.searched }}"
+                   type="button" class="btn btn-outline-primary"><i class="fa-solid fa-angle-left"></i></a>
+            {% else %}
+                <a href="?page=1" type="button" class="btn btn-outline-primary"><i class="fa-solid fa-angles-left"></i></a>
+                <a href="?page={{ objects.previous_page_number }}" type="button" class="btn btn-outline-primary"><i
+                        class="fa-solid fa-angle-left"></i></a>
+            {% endif %}
+        {% endif %}
+        {% if page_range|length > 1 %}
+            {% for i in page_range %}
+                {% if i >= objects.number|sub:5 and i <= objects.number|add:5 %}
+                    {% if i == objects.number %}
+                        <span class="active">
+                            {% if request.GET.selected and request.GET.searched %}
+                                <a href="?page={{ i }}&selected={{ request.GET.selected }}&searched={{ request.GET.searched }}"
+                                   type="button" class="btn btn-primary">{{ i }}</a>
+                            {% else %}
+                                <a href="?page={{ i }}" type="button" class="btn btn-primary">{{ i }}</a>
+                            {% endif %}
+                        </span>
+                    {% else %}
+                        <span class="page_num">
+                            {% if request.GET.selected and request.GET.searched %}
+                                <a href="?page={{ i }}&selected={{ request.GET.selected }}&searched={{ request.GET.searched }}"
+                                   type="button" class="btn btn-outline-primary">{{ i }}</a>
+                            {% else %}
+                                <a href="?page={{ i }}" type="button" class="btn btn-outline-primary">{{ i }}</a>
+                            {% endif %}
+                        </span>
+                    {% endif %}
+                {% endif %}
+
+            {% endfor %}
+        {% endif %}
+        {% if objects.has_next %}
+            {% if request.GET.selected and request.GET.searched %}
+                <a href="?page={{ objects.next_page_number }}&selected={{ request.GET.selected }}&searched={{ request.GET.searched }}"
+                   type="button" class="btn btn-outline-primary"><i class="fa-solid fa-angle-right"></i></a>
+                <a href="?page={{ objects.paginator.num_pages }}&selected={{ request.GET.selected }}&searched={{ request.GET.searched }}"
+                   type="button" class="btn btn-outline-primary"><i class="fa-solid fa-angles-right"></i></a>
+            {% else %}
+                <a href="?page={{ objects.next_page_number }}" type="button" class="btn btn-outline-primary"><i
+                        class="fa-solid fa-angle-right"></i></a>
+                <a href="?page={{ objects.paginator.num_pages }}" type="button" class="btn btn-outline-primary"><i
+                        class="fa-solid fa-angles-right"></i></a>
+            {% endif %}
+        {% endif %}
+    </span>
+</div>
+
+<br>

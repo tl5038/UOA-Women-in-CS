@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %} {% block title %}Contact - Women in Computer Science{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% load static %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/contact.css' %}">
+    {% for message in messages %}
+        <div class="container-fluid p-0">
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    <div class="mt-5 mb-5">
+        <h1 class="text-center"> Contact Us
+            <h1>
+                <h3 class="text-center"> Have a question? Contact us here! </h3>
+    </div>
+
+    <ul class="breadcrumb">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'contact' %}">Contact Us</a></li>
+    </ul>
+    <div class="contact_form_layout">
+        <h1></h1>
+        <p>
+            Please write your name, email address and a message below and one of our staff members will be happy to
+            contact you directly and answer your questions as soon as possible.
+        </p>
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="fieldWrapper">
+                <label for="first_name">First Name</label>
+                {{ form.first_name|as_crispy_field }}
+            </div>
+            <div class="fieldWrapper">
+                <label for="last_name">Last Name</label>
+                {{ form.last_name|as_crispy_field }}
+            </div>
+            <div class="fieldWrapper">
+                <label for="email_address">Email Address</label>
+                {{ form.email_address|as_crispy_field }}
+            </div>
+            <div class="fieldWrapper">
+                <label for="subject">Subject</label>
+                {{ form.subject|as_crispy_field }}
+            </div>
+            <div class="fieldWrapper">
+                <label for="message">Message</label>
+                {{ form.message|as_crispy_field }}
+            </div>
+
+            <br>
+            <button class="card-button">Submit</button>
+        </form>
+    </div>
+{% endblock %}

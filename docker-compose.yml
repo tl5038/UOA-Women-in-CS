@@ -1,0 +1,50 @@
+version: "3.5"
+
+# Example compose file for deployment
+# This deployment file can technically work without any modification for testing purposes.
+# However, DO NOT deploy to production without changing/setting important values such as SECRET_KEY.
+services:
+  app:
+    build:
+      context: .
+    volumes:
+      - static_data:/data  # /data includes both staticfiles and media directories
+    environment:
+      - SECRET_KEY=CHANGEME
+      - ALLOWED_HOSTS=127.0.0.1,localhost
+      - DB_TYPE=postgres
+      - DB_NAME=postgres
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  nginx:
+    image: nginx
+    volumes:
+      - static_data:/data
+      - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template
+    environment:
+      - NGINX_PORT=8080
+      - APP_HOST=app
+      - APP_PORT=8000  # uWSGI port
+    ports:
+      - "8080:8080"  # website accessible at http://localhost:8080
+    depends_on:
+      - app
+    restart: unless-stopped
+
+  db:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+volumes:
+  static_data:
+  postgres_data:

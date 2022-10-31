@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %} {% block title %}PhD Students - Women in Computer Science {% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profiles.css' %}">
+{% block content %}
+    <div class="mt-5 mb-5">
+        <h1 class="text-center"> PhD Students
+            <h1>
+                <h3 class="text-center"> Our current PhD students in the Computer Science department </h3>
+    </div>
+    <ul class="breadcrumb">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'phd-list' %}">PhD Students</a></li>
+    </ul>
+    <div class="container row pt-4">
+        {% for object in objects %}
+            {% include 'phd/phd_card.html' %}
+        {% empty %}
+            {% include 'base/empty.html' %}
+        {% endfor %}
+    </div>
+    {% include 'base/pagination.html' %}
+{% endblock %}

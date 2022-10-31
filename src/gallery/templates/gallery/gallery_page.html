@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %} {% block title %} {{ gallery.title }} - Women in Computer Science {% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<ul class="breadcrumb mt-4">
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'gallery-list' %}">Galleries</a></li>
+    <li><a href="{% url 'gallery-page' gallery.slug %}">{{ gallery.title }}</a></li>
+</ul>
+
+<div class="container row profile-cards">
+    <div class="mt-5 mb-5">
+        <h1 class="text-center"> {{ gallery.title }} <h1>
+    </div>
+    {% if images|length > 0 %}
+    {% for image in images %}
+        <div class="col-12 col-md-4 col-lg-4 d-flex align-self-stretch">
+            <div class="card mb-4 w-100">
+                    <img class="card-img-top img-responsive other-img" src="{{ image.image.url }}" alt="{{ image.altText }}"/>
+                {% if image.short_description %}
+                    <div class="card-body d-flex flex-column">
+                        <div class="small text-muted">{{ image.short_description }}</div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    {% else %}
+    <h5 class="text-center">No images in this gallery yet, keep an eye out for updates!</h5>
+    {% endif %}
+</div>
+
+
+{% include 'base/pagination.html' %}
+{% endblock %}

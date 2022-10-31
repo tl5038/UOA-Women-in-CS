@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %} {% block title %} {{ event.title }} - Women in Computer Science {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% load static %}
+    <ul class="breadcrumb mt-4">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'event-list' %}">Events</a></li>
+        <li><a href="{% url 'event-single' event.slug %}">{{ event.title }}</a></li>
+    </ul>
+    <div class="col d-flex justify-content-center">
+        <div class="card mt-2 mb-5 card-full profile-cards">
+            <div class="card-body d-flex flex-row justify-content-between">
+                <div class="card-full">
+                    {% if event.event_date.d == event.event_date_end.d %}
+                        <div class="card-title text-muted">{{ event.event_date|date:"D M d, Y  g:i a" }}
+                            - {{ event.event_date_end|date:"g:i a" }}</div>
+                    {% else %}
+                        <div class="card-title text-muted">{{ event.event_date|date:"D M d, Y  g:i a" }}
+                            - {{ event.event_date_end|date:"D M d, Y  g:i a" }}</div>
+                    {% endif %}
+                    <h1 class="card-title">{{ event.title }}</h1>
+                    {% if event.tags.all %}
+                        <div class="mt-auto">
+                            <div class="mb-3" style="gap:10px;">
+                                {% for tag in event.tags.all %}
+                                    <a href="{% url 'event-list-by-tag' tag.slug %}"
+                                       class="rounded-pill btn badge mid-blue">{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if event.images.first.image %}
+                        <img src="{{ event.images.first.image.url }}" alt="{{ event.images.first.short_description }}"
+                             class="w-100"/>
+                        {% if event.images.first.short_description %}
+                            <p class="small text-muted">{{ event.images.first.short_description }}</p>
+                        {% endif %}
+                    {% endif %}
+
+                    <!--Register/See more buttons-->
+                    <div class="d-flex flex-row event-buttons">
+                        {% if event.registration_url %}
+                            <div class="event-button text-nowrap">
+                                <p><a href="{{ event.registration_url|safe }}" class="btn mid-blue mt-3"
+                                      display="inline-block">Register Now <i class="fa fa-external-link"></i></a></p>
+                            </div>
+                        {% endif %}
+
+                        {% if event.external_url %}
+                            <div class="event-button text-nowrap">
+                                <p><a href="{{ event.external_url|safe }}" class="btn mid-blue mt-3"
+                                      display="inline-block">Read More <i class="fa fa-external-link"></i></a></p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <p class="profile-hr">{{ event.body|safe }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

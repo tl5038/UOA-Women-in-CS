@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %} {% block title %} {{ phd.name }} - Women in Computer Science {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profiles.css' %}">
+    <div class="border-top">
+
+    </div>
+    <ul class="breadcrumb profile-border-top">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'phd-list' %}">PhD Students</a></li>
+        <li><a href="{% url 'phd-single' phd.slug %}">{{ phd.name }}</a></li>
+    </ul>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card mt-2">
+                <div class="card-body d-flex flex-row justify-content-between profile-cards">
+                    <div>
+                        <h5 class="card-title">{{ phd.name }}</h5>
+                        <div class="profile-photo">
+                            <img class="img-fluid rounded" src="{{ phd.image.url }}"/>
+                        </div>
+                        {% if phd.email %}
+                            <div class="profile-hr profile-email">
+                                <p><i class="fa-regular fa-envelope"></i><a
+                                        href="mailto: {{ phd.email }}"> {{ phd.email }}</a></p>
+                            </div>
+                        {% endif %}
+                        {% if phd.external_url %}
+                            <div class="profile-hr">
+                                <p><a href="{{ phd.external_url }}" class="btn mid-blue mt-3" display="inline-block">Find
+                                    Out More <i class="fa fa-external-link"></i></a></p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="card mt-2">
+                <div class="card-body d-flex flex-row justify-content-between">
+                    <div>
+                        <h5 class="profile-bio">Bio</h5>
+                        <p>{{ phd.biography|safe }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

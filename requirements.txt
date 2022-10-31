@@ -1,0 +1,11 @@
+django>=4.1.1
+django-ckeditor
+django-crispy-forms
+crispy-bootstrap5
+Pillow
+django-mathfilters
+django-polymorphic
+django-autoslug
+uWSGI
+psycopg2
+django-taggit

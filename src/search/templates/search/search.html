@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %} {% block title %} {{ searched }} - Women in Computer Science {% endblock %}
+{% block content %}
+    <h2>You Have Searched For {{ searched }}</h2>
+    {% if objects_list|length <= 1 %}
+        <h5>{{ objects_list|length }} result has been found</h5>
+    {% else %}
+        <h5>{{ objects_list|length }} results have been found</h5>
+    {% endif %}
+
+    <hr>
+    <div class="container row pt-4">
+        {% for object in objects %}
+            {% if object.get_model_name == "newsmodel" %}
+                {% include 'news/news_card.html' %}
+            {% elif object.get_model_name == "eventmodel" %}
+                {% include 'event/event_card.html' %}
+            {% elif object.get_model_name == "staffprofilemodel" %}
+                {% include 'staff/staff_card.html' %}
+            {% elif object.get_model_name == "phdstudentprofilemodel" %}
+                {% include 'phd/phd_card.html' %}
+            {% elif object.get_model_name == "project" %}
+                {% include 'projects/projects_card.html' %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% include 'base/pagination.html' %}
+{% endblock %}

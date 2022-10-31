@@ -1,0 +1,81 @@
+<!-- Newest blog post-->
+{% if object == latest_news %}
+    <div class="card mb-3 px-0 mb-5">
+        <div class="row no-gutters">
+            <div class="col-md-6">
+                {% if object.images.first %}
+                    <img src="{{ object.images.first.image.url }}" class="card-img latest-img img-responsive"
+                         alt="{{ object.images.first.short_description }}">
+                {% else %}
+                    <img src="https://www.sthree.com/media/l4xiamwi/one-thing-is-clear-we-still-need-more-women-working-in-stem.png"
+                         alt="two women facing a computer" class="card-img latest-img img-responsive">
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <div class="card-body d-flex flex-column h-100 profile-cards">
+                    <div class="small text-muted">{{ object.created_at|date:"M d, Y" }}</div>
+                    <h2 class="card-title"><a class="text-reset text-decoration-none"
+                                              href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
+                    <p class="card-text profile-hr pt-3">{{ object.subtitle|safe }}</p>
+                    <div class="mt-auto">
+                        {% if object.tags.all %}
+                            <p class="card-title">
+                                <b class="project-participant">Tags:</b>
+                                {% for tag in object.tags.all %}
+                                    {% if forloop.last %}
+                                        <a class="project_link"
+                                           href="{% url 'news-list-by-tag' tag.slug %}">{{ tag.name }}</a>
+                                    {% else %}
+                                        <a class="project_link"
+                                           href="{% url 'news-list-by-tag' tag.slug %}">{{ tag.name }}</a>,
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                        <a class="w-100 btn mid-blue" href="{{ object.get_absolute_url }}">Read more →</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Other news -->
+{% else %}
+    <div class="col-12 col-md-3 col-lg-3 d-flex align-self-stretch">
+        <div class="card mb-4">
+            {% if object.images.first.image %}
+                <img class="card-img-top img-responsive other-img" src="{{ object.images.first.image.url }}"
+                     alt="{{ object.images.first.short_description }}"/>
+            {% else %}
+                <img class="card-img-top img-responsive other-img"
+                     src="https://www.sthree.com/media/l4xiamwi/one-thing-is-clear-we-still-need-more-women-working-in-stem.png"
+                     alt="two women facing a computer"/>
+            {% endif %}
+            <div class="card-body d-flex flex-column profile-cards">
+                <div class="small text-muted">{{ object.created_at|date:"M d, Y" }}</div>
+                <h4 class="card-title"><a class="text-reset text-decoration-none"
+                                          href="{{ object.get_absolute_url }}">{{ object.title }}</a></h4>
+                <p class="card-text profile-hr">{{ object.subtitle|striptags|safe|truncatewords:"20"|linebreaks }}</p>
+                <div class="mt-auto">
+                    {% if object.tags.all %}
+                        <p class="card-title">
+                            <b class="project-participant">Tags:</b>
+                            {% for tag in object.tags.all %}
+                                {% if forloop.last %}
+                                    <a class="project_link"
+                                       href="{% url 'news-list-by-tag' tag.slug %}">{{ tag.name }}</a>
+                                {% else %}
+                                    <a class="project_link"
+                                       href="{% url 'news-list-by-tag' tag.slug %}">{{ tag.name }}</a>,
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    <a class="btn mid-blue" href="{{ object.get_absolute_url }}">Read more →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endif %}

@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %} {% block title %}Events - Women in Computer Science {% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <div class="mt-5 mb-5">
+        <h1 class="text-center"> Events
+            <h1>
+                <h3 class="text-center"> All the latest Women in Computer Science events right here! </h3>
+    </div>
+
+    <ul class="breadcrumb">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'event-list' %}">Events</a></li>
+        {% if tag %}
+            <li><a href="{% url 'event-list' %}">Tag</a></li>
+            <li><a href="{% url 'event-list' %}">{{ tag }}</a></li>
+        {% endif %}
+    </ul>
+
+    <div class="container row">
+        {% for object in objects %}
+            {% include 'event/event_card.html' %}
+        {% empty %}
+            {% if past_events %}
+            {% else %}
+                {% include 'base/empty.html' %}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="container row pt-4">
+        {% if past_events %}
+            <h3> Past Events </h3>
+            {% for object in past_events %}
+                {% include 'event/event_card.html' %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {% include 'base/pagination.html' %}
+{% endblock %}

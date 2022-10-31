@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %} {% block title %}{{ staff.name }} - Women in Computer Science {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% load static %}
+
+    <ul class="breadcrumb profile-border-top">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'staff-list' %}">Staff</a></li>
+        <li><a href="{% url 'staff-single' staff.slug %}">{{ staff.name }}</a></li>
+    </ul>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card mt-2">
+                <div class="card-body d-flex flex-row justify-content-between profile-cards">
+                    <div>
+                        <h5 class="card-title">{{ staff.name }}</h5>
+                        <div class="profile-photo">
+                            <img class="img-fluid rounded profile-img" src="{{ staff.image.url }}"/>
+                        </div>
+                        {% if staff.email %}
+                            <div class="profile-hr profile-email">
+                                <p><i class="fa-regular fa-envelope"></i><a
+                                        href="mailto: {{ staff.email }}">   {{ staff.email }}</a></p>
+
+                            </div>
+                        {% endif %}
+                        {% if staff.external_url %}
+                            <div class="profile-hr">
+                                <p><a href="{{ staff.external_url }}" class="btn mid-blue mt-3" display="inline-block">Find
+                                    Out More <i class="fa fa-external-link"></i></a></p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="card mt-2">
+                <div class="card-body d-flex flex-row justify-content-between">
+                    <div>
+                        <h5 class="profile-bio">Bio</h5>
+                        <p>{{ staff.biography|safe }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

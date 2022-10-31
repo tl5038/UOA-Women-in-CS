@@ -1,0 +1,136 @@
+<!-- Latest event -->
+{% if object == latest_event %}
+    <div class="card mb-3 px-0 mb-5 profile-cards">
+        <div class="row no-gutters">
+            <div class="col-md-6 my-auto">
+                {% if object.images.first %}
+                    <img src="{{ object.images.first.image.url }}" class="card-img latest-img img-responsive"
+                         alt="{{ object.images.first.short_description }}">
+                {% else %}
+                    <img src="https://images.unsplash.com/photo-1558403121-aa30fd55fdf4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1157&q=80"
+                         alt="woman facing to the side and laughing" class="card-img latest-img img-responsive">
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <div class="card-body d-flex flex-column h-100">
+                    {% if object.event_date.d == object.event_date_end.d %}
+                        <div class="small text-muted">{{ object.event_date|date:"D M d, Y  g:i a" }}
+                            - {{ object.event_date_end|date:"g:i a" }}</div>
+                    {% else %}
+                        <div class="small text-muted">{{ object.event_date|date:"D M d, Y  g:i a" }}
+                            - {{ object.event_date_end|date:"D M d, Y  g:i a" }}</div>
+                    {% endif %}
+                    <h2 class="card-title pt-2"><a class="text-reset text-decoration-none"
+                                                   href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
+                    <div class="card-text profile-hr pt-3">{{ object.body|striptags|safe|truncatewords:"40"|linebreaks }}</div>
+                    <div class="mt-auto">
+                        {% if object.tags.all %}
+                            <p class="card-title">
+                                <b class="project-participant">Tags:</b>
+                                {% for tag in object.tags.all %}
+                                    {% if forloop.last %}
+                                        <a class="project_link"
+                                           href="{% url 'event-list-by-tag' tag.slug %}">{{ tag.name }}</a>
+                                    {% else %}
+                                        <a class="project_link"
+                                           href="{% url 'event-list-by-tag' tag.slug %}">{{ tag.name }}</a>,
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                        <a class="w-100 btn mid-blue" href="{{ object.get_absolute_url }}">Read more →</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Past events -->
+{% elif object in past_events %}
+    <div class="col-12 col-md-3 col-lg-3 d-flex align-self-stretch opacity-50">
+        <div class="card mb-4">
+            {% if object.images.first.image %}
+                <img class="card-img-top img-responsive other-img" src="{{ object.images.first.image.url }}"
+                     alt="{{ object.images.first.short_description }}"/>
+            {% else %}
+                <img class="card-img-top img-responsive other-img"
+                     src="https://images.unsplash.com/photo-1558403121-aa30fd55fdf4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1157&q=80"
+                     alt="woman facing to the side and laughing"/>
+            {% endif %}
+            <div class="card-body d-flex flex-column profile-cards">
+                {% if object.event_date.d == object.event_date_end.d %}
+                    <div class="small text-muted">{{ object.event_date|date:"D M d, Y  g:i a" }}
+                        - {{ object.event_date_end|date:"g:i a" }}</div>
+                {% else %}
+                    <div class="small text-muted">{{ object.event_date|date:"D M d, Y  g:i a" }}
+                        - {{ object.event_date_end|date:"D M d, Y  g:i a" }}</div>
+                {% endif %}
+                <h4 class="card-title"><a class="text-reset text-decoration-none"
+                                          href="{{ object.get_absolute_url }}">{{ object.title }}</a></h4>
+                <div class="mt-auto">
+                    <p class="card-title">
+                        {% if object.tags.all %}
+                            <b class="project-participant">Tags:</b>
+                            {% for tag in object.tags.all %}
+                                {% if forloop.last %}
+                                    <a class="project_link"
+                                       href="{% url 'event-list-by-tag' tag.slug %}">{{ tag.name }}</a>
+                                {% else %}
+                                    <a class="project_link"
+                                       href="{% url 'event-list-by-tag' tag.slug %}">{{ tag.name }}</a>,
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+                    <a class="btn mid-blue" href="{{ object.get_absolute_url }}">Read more →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Other future events -->
+{% else %}
+    <div class="col-12 col-md-3 col-lg-3 d-flex align-self-stretch">
+        <div class="card mb-4">
+            {% if object.images.first.image %}
+                <img class="card-img-top img-responsive other-img" src="{{ object.images.first.image.url }}"
+                     alt="{{ object.images.first.short_description }}"/>
+            {% else %}
+                <img class="card-img-top img-responsive other-img"
+                     src="https://images.unsplash.com/photo-1558403121-aa30fd55fdf4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1157&q=80"
+                     alt="woman facing to the side and laughing"/>
+            {% endif %}
+            <div class="card-body d-flex flex-column profile-cards">
+                {% if object.event_date.d == object.event_date_end.d %}
+                    <div class="small text-muted">{{ object.event_date|date:"D M d, Y  g:i a" }}
+                        - {{ object.event_date_end|date:"g:i a" }}</div>
+                {% else %}
+                    <div class="small text-muted">{{ object.event_date|date:"D M d, Y  g:i a" }}
+                        - {{ object.event_date_end|date:"D M d, Y  g:i a" }}</div>
+                {% endif %}
+                <h4 class="card-title"><a class="text-reset text-decoration-none"
+                                          href="{{ object.get_absolute_url }}">{{ object.title }}</a></h4>
+                <div class="mt-auto">
+                    <p class="card-title">
+                        {% if object.tags.all %}
+                            <b class="project-participant">Tags:</b>
+                            {% for tag in object.tags.all %}
+                                {% if forloop.last %}
+                                    <a class="project_link"
+                                       href="{% url 'event-list-by-tag' tag.slug %}">{{ tag.name }}</a>
+                                {% else %}
+                                    <a class="project_link"
+                                       href="{% url 'event-list-by-tag' tag.slug %}">{{ tag.name }}</a>,
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+                    <a class="btn mid-blue" href="{{ object.get_absolute_url }}">Read more →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endif %}

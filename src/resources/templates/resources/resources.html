@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %} {% block title %}Resources - Women in Computer Science {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% load static %}
+    <div class="mt-5 mb-5">
+        <h1 class="text-center"> Resources </h1>
+        <h3 class="text-center"> Helpful links for your research, career and studies </h3>
+    </div>
+    <ul class="breadcrumb">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'resources-list' %}">Resources</a></li>
+    </ul>
+    <div class="row">
+        {% for category in categories %}
+            <div class="col-sm-6">
+                <div class="list-group mx-auto mt-5 mb-5">
+                    <a class="mid-blue list-group-item text-white "> {{ category.name }} </a>
+                    {% for resource in category.resources.all %}
+                        <a href="{{ resource.url }}" target="_blank"
+                           class="list-group-item list-group-item-action">{{ resource }} <small><span
+                                class="fa fa-external-link"></span></small></a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% empty %}
+            {% include 'base/empty.html' %}
+        {% endfor %}
+
+    </div>
+
+
+{% endblock %}
