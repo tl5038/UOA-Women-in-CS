@@ -1,7 +1,7 @@
 # Women in Computer Science Website
-Team 13 - It Can't Hurt
 
-The project (Project 7) is a website focusing on women in the School of Computer Science at the University of Auckland. Featuring eight different pages - news, events, staff, PhD students, projects, image gallery, resources and contact - this website provides resources, inspiration and opportunities to connect for women pursuing Computer Science. 
+
+The project is a website focusing on women in the School of Computer Science at the University of Auckland. Featuring eight different pages - news, events, staff, PhD students, projects, image gallery, resources and contact - this website provides resources, inspiration and opportunities to connect for women pursuing Computer Science. 
 
 This project also features an administration panel where admins can add, edit or delete any item on the page. The website will display these changes automatically for a smooth connection between the administrators' and website visitors' experience.
 
@@ -19,13 +19,6 @@ This project also features an administration panel where admins can add, edit or
   * [Acknowledgements](#acknowledgements)
 <!-- TOC -->
 
-## Project Information
-
-Project Management board: [Team 13 It-Can-t-Hurt Jira](https://itcanthurt-team13.atlassian.net/jira/software/projects/ICH/boards/1/roadmap?shared=&atlOrigin=eyJpIjoiMGJhZGM2YTBiMWVlNGFlMmJjZjFjOTA1ZGM3NjBjZDMiLCJwIjoiaiJ9)
-
-Demo Deployment (will be unavailable after the semester): [http://ec2-13-211-149-16.ap-southeast-2.compute.amazonaws.com/](http://ec2-13-211-149-16.ap-southeast-2.compute.amazonaws.com/)
-- Admin interface is accessible at [/admin](http://ec2-13-211-149-16.ap-southeast-2.compute.amazonaws.com/admin)
-    - credentials have been privately shared
 
 ## Technologies Used
 
